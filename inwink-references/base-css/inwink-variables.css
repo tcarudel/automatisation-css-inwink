@@ -1,0 +1,141 @@
+/*
+ * ============================================================
+ * INWINK — VARIABLES CSS PAR THÈME DE BLOC
+ * ============================================================
+ * Fichier généré automatiquement à partir du JSON de configuration.
+ * Remplacer les 4 valeurs sources pour adapter à chaque client.
+ *
+ * 4 COULEURS SOURCES (à remplacer par client) :
+ *   mainColor      → {{mainColor}}
+ *   secondaryColor → {{secondaryColor}}
+ *   lightColor     → {{lightColor}}
+ *   darkColor      → {{darkColor}}
+ * ============================================================
+ */
+
+
+/* ------------------------------------------------------------
+   THÈME PAR DÉFAUT (whitebloc)
+   ------------------------------------------------------------ */
+:root,
+.bloctheme-whitebloc {
+    --inwinkbgcolor:               #FFFFFF;
+    --inwinktextcolor:             {{mainColor}};
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         {{mainColor}};
+    --inwinkaccentbgtextcolor:     white;
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      black;
+    --inwinkdarkaccentbgcolor:     {{darkColor}};
+    --inwinkdarkaccentbgtextcolor: white;
+}
+
+.bloctheme-whitebloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
+
+
+/* ------------------------------------------------------------
+   THÈME SOMBRE (darkbloc)
+   ------------------------------------------------------------ */
+.bloctheme-darkbloc {
+    --inwinkbgcolor:               {{darkColor}};
+    --inwinktextcolor:             white;
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         {{mainColor}};
+    --inwinkaccentbgtextcolor:     white;
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      white;
+    --inwinkdarkaccentbgcolor:     #424242;
+    --inwinkdarkaccentbgtextcolor: white;
+}
+
+.bloctheme-darkbloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
+
+
+/* ------------------------------------------------------------
+   THÈME COULEUR PRINCIPALE (primarycolorbloc)
+   ------------------------------------------------------------ */
+.bloctheme-primarycolorbloc {
+    --inwinkbgcolor:               {{mainColor}};
+    --inwinktextcolor:             white;
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         #FFFFFF;
+    --inwinkaccentbgtextcolor:     {{mainColor}};
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      black;
+    --inwinkdarkaccentbgcolor:     #FFFFFF;
+    --inwinkdarkaccentbgtextcolor: {{mainColor}};
+}
+
+.bloctheme-primarycolorbloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
+
+
+/* ------------------------------------------------------------
+   THÈME COULEUR SECONDAIRE (secondarycolorbloc)
+   ------------------------------------------------------------ */
+.bloctheme-secondarycolorbloc {
+    --inwinkbgcolor:               {{secondaryColor}};
+    --inwinktextcolor:             white;
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         #FFFFFF;
+    --inwinkaccentbgtextcolor:     {{mainColor}};
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      black;
+    --inwinkdarkaccentbgcolor:     #FFFFFF;
+    --inwinkdarkaccentbgtextcolor: {{mainColor}};
+}
+
+.bloctheme-secondarycolorbloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
+
+
+/* ------------------------------------------------------------
+   THÈME GRIS CLAIR (lightgreybloc)
+   ------------------------------------------------------------ */
+.bloctheme-lightgreybloc {
+    --inwinkbgcolor:               {{lightColor}};
+    --inwinktextcolor:             black;
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         {{mainColor}};
+    --inwinkaccentbgtextcolor:     white;
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      black;
+    --inwinkdarkaccentbgcolor:     {{darkColor}};
+    --inwinkdarkaccentbgtextcolor: white;
+}
+
+.bloctheme-lightgreybloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
+
+
+/* ------------------------------------------------------------
+   THÈME TRANSPARENT (transparentbloc)
+   ------------------------------------------------------------ */
+.bloctheme-transparentbloc {
+    --inwinkbgcolor:               transparent;
+    --inwinktextcolor:             {{mainColor}};
+    --inwinkaccentcolor:           {{mainColor}};
+    --inwinkaccentbgcolor:         {{mainColor}};
+    --inwinkaccentbgtextcolor:     white;
+    --inwinklightbgcolor:          {{lightColor}};
+    --inwinklightbgtextcolor:      black;
+    --inwinkdarkaccentbgcolor:     {{darkColor}};
+    --inwinkdarkaccentbgtextcolor: white;
+}
+
+.bloctheme-transparentbloc .card {
+    --inwinkbgcolor:   #FFFFFF;
+    --inwinktextcolor: #000000;
+}
