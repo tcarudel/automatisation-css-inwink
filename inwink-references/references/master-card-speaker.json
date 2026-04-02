@@ -191,6 +191,21 @@
             "properties": {
                 "description": "Ajoute des attributs HTML statiques sur un élément.",
                 "example": { "properties": { "loading": "lazy", "alt": "" } }
+            },
+            "staticText": {
+                "description": "Texte statique localisé en dur dans le template. Rare (<1% des cas). Demander confirmation et syntaxe exacte avant usage.",
+                "example": {
+                    "type": "h3",
+                    "className": "section-title",
+                    "fields": [
+                        {
+                            "text": {
+                                "fr": "L'intervenant",
+                                "en": "The speaker"
+                            }
+                        }
+                    ]
+                }
             }
         },
         "itemsLayoutReference": {
