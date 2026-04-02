@@ -1,0 +1,452 @@
+{
+    "_id": "",
+
+    "meta": {
+        "id": "card-speaker",
+        "label": "Card Speaker",
+        "description": "Gabarit de card pour les intervenants (speakers) d'un événement Inwink.",
+        "version": "1.1",
+        "dom": {
+            "structure": "div.inwink-item.speaker-item > a.itemcontent.clickable.card[.round] > [ div.userpicture.userpictureimg > [ div.userpicture-text > span.text, img.userpicture-photo ] | div.detail > [ h4.name.bloc-accent, h5.company, h5.jobTitle, p.description, div.sociallinks ] | div.itembloccontentactions ]",
+            "notes": {
+                "card": "La card est un élément <a>, pas un <div>. Les styles s'appliquent sur l'élément <a>.",
+                "round": "La classe 'round' est ajoutée sur <a.card> si templateOptions.roundPicture === true. Absente si le gabarit ne propose pas cette option.",
+                "userpictureimg": "Bloc photo standard. Contient toujours .userpicture-text (initiales) et img.userpicture-photo (photo). La photo passe par-dessus les initiales via CSS. Utilise photo.thumbUrl.",
+                "img.image": "Variante alternative à userpictureimg. Utilise photo.url (pleine résolution) via un binding. Nécessite une gestion CSS complète (position absolute, object-fit cover). Aucune gestion automatique des initiales.",
+                "bloc-accent": "La classe 'bloc-accent' sur h4.name applique var(--inwinkaccentcolor) au nom du speaker.",
+                "company": "Masqué si templateOptions.hideCompany === true ou si le champ est vide.",
+                "jobTitle": "Masqué si templateOptions.hideJobtitle === true ou si le champ est vide.",
+                "description": "Champ biographie. Type p.description. Masqué si templateOptions.hideDescription === true ou si le champ est vide. maxLength recommandé : 400.",
+                "sociallinks": "Toujours présent dans le DOM même si vide. Masqué si templateOptions.hideSocialLinks === true. Peut être placé dans .detail ou directement dans .card selon le gabarit.",
+                "itembloccontentactions": "Bloc de boutons d'action personnalisés. Présent uniquement si template.allowCustomAction === true et template.templateType === 'speaker'. Géré via template.blocs[type: itemtemplateactions].",
+                "fieldval": "Chaque champ texte est rendu comme : span.fieldval > span.fieldtext",
+                "showIf": "Syntaxe conditionnelle pour masquer un bloc. Toujours utiliser le pattern not/or avec isempty, eq '' et eq null pour les champs texte."
+            }
+        },
+        "backoffice": {
+            "note": "Champs disponibles dans le back-office Inwink pour ce gabarit (scope public uniquement — les seuls affichables dans un gabarit). D'autres champs custom peuvent exister selon la configuration de l'événement.",
+            "fields": [
+                { "name": "photo.thumbUrl", "label": "Photo (miniature)", "type": "image", "note": "Utilisé avec le bloc userpictureimg" },
+                { "name": "photo.url", "label": "Photo (pleine résolution)", "type": "image", "note": "Utilisé avec un bloc img + bindings" },
+                { "name": "firstname", "label": "Prénom", "type": "Text" },
+                { "name": "lastname", "label": "Nom", "type": "Text" },
+                { "name": "company", "label": "Entreprise", "type": "Text", "maxLength": 30 },
+                { "name": "jobTitle", "label": "Fonction", "type": "Text", "maxLength": 30 },
+                { "name": "description", "label": "Biographie", "type": "MultiLineText", "maxLength": 400, "note": "Champ localisable (fr/en). Rendu dans un bloc p.description." },
+                { "name": "country", "label": "Pays", "type": "SelectList", "note": "Liste de pays. Rarement affiché dans une card." },
+                { "name": "website", "label": "Site web", "type": "Text" },
+                { "name": "linkedin", "label": "LinkedIn", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" },
+                { "name": "twitter", "label": "Twitter/X", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" },
+                { "name": "facebook", "label": "Facebook", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" },
+                { "name": "instagram", "label": "Instagram", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" },
+                { "name": "youtube", "label": "YouTube", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" },
+                { "name": "tiktok", "label": "TikTok", "type": "Text", "note": "Géré automatiquement par le bloc sociallinks" }
+            ]
+        },
+        "templateOptionsReference": {
+            "note": "Options configurables dans l'interface Inwink. Le générateur les renseigne directement dans le JSON livré selon ce que montre la maquette — le client n'a pas à le faire manuellement.",
+            "options": [
+                {
+                    "key": "roundPicture",
+                    "type": "bool",
+                    "default": false,
+                    "label_fr": "Image arrondie",
+                    "label_en": "Round picture",
+                    "effect": "Ajoute la classe CSS 'round' sur a.card. Nécessite conditionalClasses.round dans le template."
+                },
+                {
+                    "key": "hideCompany",
+                    "type": "bool",
+                    "default": false,
+                    "label_fr": "Masquer la société",
+                    "label_en": "Hide person's company name",
+                    "effect": "Masque h5.company via la condition showIf du bloc."
+                },
+                {
+                    "key": "hideJobtitle",
+                    "type": "bool",
+                    "default": false,
+                    "label_fr": "Masquer la fonction",
+                    "label_en": "Hide person's job title",
+                    "effect": "Masque h5.jobTitle via la condition showIf du bloc."
+                },
+                {
+                    "key": "hideDescription",
+                    "type": "bool",
+                    "default": false,
+                    "label_fr": "Masquer la description",
+                    "label_en": "Hide description",
+                    "effect": "Masque p.description via la condition showIf du bloc. N'ajouter cette option que si le champ description est dans le template."
+                },
+                {
+                    "key": "hideSocialLinks",
+                    "type": "bool",
+                    "default": false,
+                    "label_fr": "Masquer les réseaux sociaux",
+                    "label_en": "Hide person's social links",
+                    "effect": "Masque div.sociallinks via la condition showIf du bloc."
+                }
+            ]
+        },
+        "domPatterns": {
+            "note": "Patterns de structure DOM observés dans les 8 gabarits par défaut. Le générateur choisit le pattern le plus adapté à la maquette, ou en crée un nouveau si nécessaire.",
+            "patterns": [
+                {
+                    "id": "column-photo-top",
+                    "label": "Colonne — photo en haut",
+                    "description": "Layout flex column. Photo pleine largeur en haut, texte en dessous. Le plus courant.",
+                    "usedIn": ["speaker2", "speaker5", "speaker7"],
+                    "cardCSS": "display:flex; flex-flow:column nowrap; align-items:center;",
+                    "photoCSS": "width:100%; min-height:220px;"
+                },
+                {
+                    "id": "column-photo-top-round",
+                    "label": "Colonne — photo ronde centrée",
+                    "description": "Variante du pattern column avec photo ronde (classe .round). Photo de taille fixe centrée.",
+                    "usedIn": ["speaker5"],
+                    "roundPhotoCSS": "margin: 1rem auto 0; min-width:150px; max-width:150px; min-height:150px;"
+                },
+                {
+                    "id": "row-photo-left",
+                    "label": "Ligne — photo à gauche",
+                    "description": "Layout flex row. Photo à gauche (taille fixe ou proportionnelle), texte à droite.",
+                    "usedIn": ["speaker1", "speaker3", "speaker4"],
+                    "cardCSS": "display:flex; flex-flow:row nowrap; align-items:center; gap:20px;",
+                    "photoCSS": "min-height:200px; min-width:200px; height:100%; width:20%;"
+                },
+                {
+                    "id": "row-compact",
+                    "label": "Ligne compacte — photo 80px",
+                    "description": "Layout flex row compact. Photo carrée de petite taille fixe (80x80px).",
+                    "usedIn": ["speaker3"],
+                    "photoCSS": "min-height:80px; min-width:80px; height:80px; width:80px;"
+                },
+                {
+                    "id": "grid-photo-left",
+                    "label": "Grid — photo à gauche, contenu à droite",
+                    "description": "Layout CSS grid 2 colonnes. Photo occupe la colonne gauche sur toute la hauteur. Texte et boutons dans la colonne droite.",
+                    "usedIn": ["speaker8"],
+                    "cardCSS": "display:grid; grid-template-areas:'logo content' 'logo btn'; grid-template-columns:minmax(230px, 25%) 1fr;",
+                    "responsiveCSS": "Sur mobile : grid-template-areas:'logo' 'content' 'btn'; grid-template-columns:1fr;"
+                },
+                {
+                    "id": "background-photo",
+                    "label": "Photo en arrière-plan",
+                    "description": "Photo utilisée comme background absolu couvrant toute la card. Dégradé noir par-dessus. Texte positionné en bas via z-index. Utilise img.image (photo.url) au lieu de userpictureimg.",
+                    "usedIn": ["speaker6"],
+                    "note": "Ce pattern n'utilise PAS le bloc userpictureimg. Il utilise un bloc img avec bindings sur photo.url.",
+                    "cardCSS": "position:relative; display:flex; flex-flow:column; justify-content:flex-end; min-height:320px;",
+                    "imageCSS": "position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;",
+                    "overlayCSS": "pseudo-element ::before avec linear-gradient noir en z-index:1"
+                }
+            ]
+        },
+        "domSyntaxReference": {
+            "note": "Syntaxes JSON Inwink à connaître pour manipuler le DOM.",
+            "userpictureimg": {
+                "description": "Bloc photo standard avec fallback initiales. Recommandé dans la majorité des cas.",
+                "example": {
+                    "type": "userpictureimg",
+                    "fields": [{ "name": "photo.thumbUrl" }],
+                    "customfields": [{ "name": "firstname" }, { "name": "lastname" }]
+                }
+            },
+            "imgWithBinding": {
+                "description": "Bloc image simple avec binding sur un champ BO. Utilisé pour photo.url (pleine résolution) ou tout champ image. Pas de fallback initiales.",
+                "example": {
+                    "type": "img",
+                    "className": "image",
+                    "properties": { "loading": "lazy" },
+                    "bindings": [{ "fields": [{ "name": "photo.url" }], "target": "src" }]
+                }
+            },
+            "showIf": {
+                "description": "Condition d'affichage d'un bloc. Pattern standard pour les champs texte optionnels.",
+                "example": {
+                    "showIf": [{ "not": { "or": [
+                        { "name": "fieldName", "op": "isempty" },
+                        { "name": "fieldName", "op": "eq", "val": "" },
+                        { "name": "fieldName", "op": "eq", "val": null },
+                        { "name": "templateOptions.hideFieldName", "op": "eq", "val": true }
+                    ]}}]
+                }
+            },
+            "conditionalClasses": {
+                "description": "Ajoute une classe CSS sur la card selon une option templateOptions. Peut être étendu pour créer de nouvelles classes conditionnelles.",
+                "example": {
+                    "conditionalClasses": {
+                        "round": [{ "name": "templateOptions.roundPicture", "op": "eq", "val": true }],
+                        "ma-classe-custom": [{ "name": "templateOptions.monOption", "op": "eq", "val": true }]
+                    }
+                }
+            },
+            "itemtemplateactions": {
+                "description": "Bloc de boutons d'action. Nécessite allowCustomAction:true et templateType:'speaker' sur le template. Génère un div.itembloccontentactions dans le DOM.",
+                "requiredOnTemplate": { "allowCustomAction": true, "templateType": "speaker" },
+                "example": {
+                    "type": "itemtemplateactions",
+                    "actions": [{ "id": "unique-id", "link": {}, "label": { "fr": "Voir le profil", "en": "View profile" }, "icon": { "className": "" }, "description": {} }]
+                }
+            },
+            "properties": {
+                "description": "Ajoute des attributs HTML statiques sur un élément.",
+                "example": { "properties": { "loading": "lazy", "alt": "" } }
+            }
+        },
+        "itemsLayoutReference": {
+            "note": "Le générateur recommande un layout cohérent avec la maquette. Le client peut le modifier manuellement ensuite.",
+            "breakpoints": {
+                "XXS": "col1 — mobile portrait (toujours 1 colonne)",
+                "XS": "col2 — mobile paysage",
+                "S": "col3 — tablette portrait",
+                "M": "col3 — tablette paysage",
+                "L": "col4 ou col5 — desktop",
+                "XL": "col4 ou col5 — grand écran",
+                "default": "valeur de fallback si breakpoint non défini"
+            },
+            "layoutsByPattern": {
+                "column-photo-top": "col5/col5/col3/col3/col2/col1 — grille dense adaptée aux cards verticales",
+                "row-photo-left": "col1 — une seule colonne, les cards prennent toute la largeur",
+                "row-compact": "col3/col3/col2/col2/col1/col1 — liste compacte",
+                "grid-photo-left": "col1 — une seule colonne sur tous les breakpoints",
+                "background-photo": "col5/col5/col3/col3/col2/col1 — grille dense adaptée aux cards carrées"
+            }
+        },
+        "cssRules": {
+            "scoping": "##contentid est un placeholder remplacé dynamiquement par Inwink. Toujours scoper avec ##contentid.",
+            "replacement": "Le CSS généré remplace intégralement le customCSS par défaut du gabarit. Il doit couvrir tous les cas : photo, fallback initiales, zone texte, réseaux sociaux, responsive.",
+            "reset": "Toujours commencer par un reset ciblé sur les éléments du gabarit pour neutraliser margin, padding, box-sizing, width, height, min-width, min-height avant de déclarer les valeurs souhaitées.",
+            "forbidden": [
+                "Ne jamais cibler .root-vstate-* dans le CSS personnalisé.",
+                "Ne jamais cibler .layout-col* dans le CSS personnalisé. Le layout est géré par le back-office client.",
+                "Ne jamais hardcoder de valeurs hex pour les couleurs fonctionnelles — utiliser les variables --inwink*.",
+                "Ne jamais redéclarer les variables --inwink* — elles sont déjà gérées par Inwink.",
+                "Utiliser !important uniquement pour surcharger des styles inline appliqués par Inwink via JavaScript. Chaque usage doit être commenté et justifié."
+            ],
+            "inwinkVariables": {
+                "onBloc": [
+                    "--inwinkbgcolor",
+                    "--inwinktextcolor",
+                    "--inwinkaccentcolor",
+                    "--inwinkaccentbgcolor",
+                    "--inwinkaccentbgtextcolor",
+                    "--inwinklightbgcolor",
+                    "--inwinklightbgtextcolor",
+                    "--inwinkdarkaccentbgcolor",
+                    "--inwinkdarkaccentbgtextcolor"
+                ],
+                "onCard": [
+                    "--inwinkbgcolor (redéclarée : #FFFFFF dans tous les thèmes sombres)",
+                    "--inwinktextcolor (redéclarée : #000000 dans tous les thèmes sombres)"
+                ],
+                "keyUsages": {
+                    "h4.name.bloc-accent": "color: var(--inwinkaccentcolor)",
+                    "fond de card": "background-color: var(--inwinkbgcolor)",
+                    "texte de card": "color: var(--inwinktextcolor)"
+                }
+            },
+            "responsive": {
+                "note": "Gérer uniquement les comportements limites via des media queries CSS standard sur la largeur d'écran. Ne jamais cibler .root-vstate-* ni .layout-col*.",
+                "breakpointsObserved": {
+                    "max-width: 767px": "Mobile — réduction des tailles de photo, masquage de la description",
+                    "max-width: 365px": "Très petit mobile — réduction supplémentaire si nécessaire"
+                }
+            }
+        }
+    },
+
+    "customCSS": "/* Ce champ sera remplacé dans le JSON livré par le CSS personnalisé généré. */",
+
+    "template": {
+        "type": "article",
+        "className": "card",
+        "conditionalClasses": {
+            "round": [
+                {
+                    "name": "templateOptions.roundPicture",
+                    "op": "eq",
+                    "val": true
+                }
+            ]
+        },
+        "blocs": [
+            {
+                "type": "userpictureimg",
+                "fields": [
+                    {
+                        "name": "photo.thumbUrl"
+                    }
+                ],
+                "customfields": [
+                    {
+                        "name": "firstname"
+                    },
+                    {
+                        "name": "lastname"
+                    }
+                ]
+            },
+            {
+                "type": "div",
+                "className": "detail",
+                "blocs": [
+                    {
+                        "type": "h4",
+                        "className": "name bloc-accent",
+                        "fields": [
+                            {
+                                "name": "firstname"
+                            },
+                            {
+                                "name": "lastname"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "h5",
+                        "className": "company",
+                        "showIf": [
+                            {
+                                "not": {
+                                    "or": [
+                                        { "name": "company", "op": "isempty" },
+                                        { "name": "company", "op": "eq", "val": "" },
+                                        { "name": "company", "op": "eq", "val": null },
+                                        { "name": "templateOptions.hideCompany", "op": "eq", "val": true }
+                                    ]
+                                }
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "name": "company",
+                                "maxLength": 30
+                            }
+                        ]
+                    },
+                    {
+                        "type": "h5",
+                        "className": "jobTitle",
+                        "showIf": [
+                            {
+                                "not": {
+                                    "or": [
+                                        { "name": "jobTitle", "op": "isempty" },
+                                        { "name": "jobTitle", "op": "eq", "val": "" },
+                                        { "name": "jobTitle", "op": "eq", "val": null },
+                                        { "name": "templateOptions.hideJobtitle", "op": "eq", "val": true }
+                                    ]
+                                }
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "name": "jobTitle",
+                                "maxLength": 30
+                            }
+                        ]
+                    },
+                    {
+                        "type": "p",
+                        "className": "description",
+                        "showIf": [
+                            {
+                                "not": {
+                                    "or": [
+                                        { "name": "description", "op": "isempty" },
+                                        { "name": "description", "op": "eq", "val": "" },
+                                        { "name": "description", "op": "eq", "val": null },
+                                        { "name": "templateOptions.hideDescription", "op": "eq", "val": true }
+                                    ]
+                                }
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "name": "description",
+                                "maxLength": 400
+                            }
+                        ]
+                    },
+                    {
+                        "type": "sociallinks",
+                        "showIf": [
+                            {
+                                "name": "templateOptions.hideSocialLinks",
+                                "op": "neq",
+                                "val": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+
+    "templateOptions": {
+        "hideCompany": false,
+        "hideJobtitle": false,
+        "hideDescription": false,
+        "hideSocialLinks": false,
+        "roundPicture": true
+    },
+
+    "templateOptionsConfig": {
+        "fields": [
+            {
+                "key": "hideCompany",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer la société",
+                    "en": "Hide person's company name"
+                }
+            },
+            {
+                "key": "hideJobtitle",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer la fonction",
+                    "en": "Hide person's job title"
+                }
+            },
+            {
+                "key": "hideDescription",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer la description",
+                    "en": "Hide description"
+                }
+            },
+            {
+                "key": "hideSocialLinks",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer les réseaux sociaux",
+                    "en": "Hide person's social links"
+                }
+            },
+            {
+                "key": "roundPicture",
+                "type": "bool",
+                "labels": {
+                    "fr": "Image arrondie",
+                    "en": "Round picture"
+                }
+            }
+        ]
+    },
+
+    "itemsAlign": {
+        "default": "left"
+    },
+
+    "itemsLayout": {
+        "default": "col5",
+        "XL": "col5",
+        "L": "col5",
+        "M": "col3",
+        "S": "col3",
+        "XS": "col2",
+        "XXS": "col1"
+    }
+}
