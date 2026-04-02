@@ -1,0 +1,305 @@
+{
+    "_id": "3cfd457a-e333-49a3-b16b-9ea33d42bc59",
+
+    "meta": {
+        "id": "card-speaker",
+        "label": "Card Speaker",
+        "description": "Gabarit de card pour les intervenants (speakers) d'un événement Inwink.",
+        "version": "1.1",
+        "dom": {
+            "structure": "div.inwink-item.speaker-item > a.itemcontent.clickable.card[.round] > [ div.userpicture.userpictureimg > [ div.userpicture-text > span.text, img.userpicture-photo ] | div.detail > [ h4.name.bloc-accent, h5.company, h5.jobTitle ] | div.sociallinks ]",
+            "notes": {
+                "card": "La card est un élément <a>, pas un <div>. Les styles s'appliquent sur l'élément <a>.",
+                "round": "La classe 'round' est ajoutée sur <a.card> si templateOptions.roundPicture === true.",
+                "userpicture": "Contient toujours les deux enfants. La photo (.userpicture-photo) s'affiche par-dessus les initiales (.userpicture-text). Pas de classe conditionnelle — c'est le CSS qui gère la superposition.",
+                "bloc-accent": "La classe 'bloc-accent' sur h4.name applique la couleur var(--inwinkaccentcolor) au nom du speaker.",
+                "company": "Masqué si templateOptions.hideCompany === true ou si le champ est vide.",
+                "jobTitle": "Masqué si templateOptions.hideJobtitle === true ou si le champ est vide.",
+                "sociallinks": "Toujours présent dans le DOM même si vide. Masqué si templateOptions.hideSocialLinks === true.",
+                "fieldval": "Chaque champ texte est rendu comme : span.fieldval > span.fieldtext"
+            }
+        },
+        "backoffice": {
+            "note": "Champs disponibles dans le back-office Inwink pour ce gabarit. D'autres champs peuvent exister selon la configuration de l'événement.",
+            "fields": [
+                { "name": "photo.thumbUrl", "label": "Photo (miniature)", "type": "image" },
+                { "name": "firstname", "label": "Prénom", "type": "string" },
+                { "name": "lastname", "label": "Nom", "type": "string" },
+                { "name": "company", "label": "Entreprise", "type": "string", "maxLength": 30 },
+                { "name": "jobTitle", "label": "Fonction", "type": "string", "maxLength": 30 }
+            ]
+        },
+        "templateOptionsReference": {
+            "note": "Ces options sont à définir dans le JSON livré selon ce que montre la maquette. Le générateur les renseigne directement — le client n'a pas à le faire manuellement.",
+            "options": [
+                {
+                    "key": "roundPicture",
+                    "type": "bool",
+                    "default": true,
+                    "effect": "Ajoute la classe CSS 'round' sur a.card → photo et initiales en cercle"
+                },
+                {
+                    "key": "hideCompany",
+                    "type": "bool",
+                    "default": false,
+                    "effect": "Masque h5.company dans le DOM"
+                },
+                {
+                    "key": "hideJobtitle",
+                    "type": "bool",
+                    "default": false,
+                    "effect": "Masque h5.jobTitle dans le DOM"
+                },
+                {
+                    "key": "hideSocialLinks",
+                    "type": "bool",
+                    "default": false,
+                    "effect": "Masque div.sociallinks dans le DOM"
+                }
+            ]
+        },
+        "itemsLayoutReference": {
+            "note": "Le générateur recommande un layout cohérent avec la maquette. Le client peut le modifier manuellement ensuite. Les valeurs possibles sont col1 à col5. itemsAlign peut être left, center ou right.",
+            "breakpoints": {
+                "XXS": "col1 — mobile portrait (toujours 1 colonne)",
+                "XS": "col2 — mobile paysage",
+                "S": "col3 — tablette portrait",
+                "M": "col3 — tablette paysage",
+                "L": "col4 ou col5 — desktop",
+                "XL": "col4 ou col5 — grand écran",
+                "default": "valeur de fallback si breakpoint non défini"
+            }
+        },
+        "cssRules": {
+            "scoping": "##contentid est un placeholder remplacé dynamiquement par Inwink. Toujours scoper avec ##contentid.",
+            "replacement": "Le CSS généré remplace intégralement le customCSS par défaut du gabarit. Il doit donc couvrir tous les cas : photo, fallback initiales, zone texte, réseaux sociaux.",
+            "forbidden": [
+                "Ne jamais cibler .root-vstate-* dans le CSS personnalisé.",
+                "Ne jamais cibler .layout-col* dans le CSS personnalisé. Le layout est géré par le back-office client.",
+                "Ne jamais hardcoder de valeurs hex pour les couleurs fonctionnelles — utiliser les variables --inwink*.",
+                "Ne jamais redéclarer les variables --inwink* — elles sont déjà gérées par Inwink.",
+                "Utiliser !important uniquement pour surcharger des styles inline appliqués par Inwink via JavaScript. Chaque usage doit être commenté et justifié."
+            ],
+            "inwinkVariables": {
+                "onBloc": [
+                    "--inwinkbgcolor",
+                    "--inwinktextcolor",
+                    "--inwinkaccentcolor",
+                    "--inwinkaccentbgcolor",
+                    "--inwinkaccentbgtextcolor",
+                    "--inwinklightbgcolor",
+                    "--inwinklightbgtextcolor",
+                    "--inwinkdarkaccentbgcolor",
+                    "--inwinkdarkaccentbgtextcolor"
+                ],
+                "onCard": [
+                    "--inwinkbgcolor (redéclarée : #FFFFFF dans tous les thèmes sombres)",
+                    "--inwinktextcolor (redéclarée : #000000 dans tous les thèmes sombres)"
+                ],
+                "keyUsages": {
+                    "h4.name.bloc-accent": "color: var(--inwinkaccentcolor)",
+                    "fond de card": "background-color: var(--inwinkbgcolor)",
+                    "texte de card": "color: var(--inwinktextcolor)"
+                }
+            },
+            "responsive": {
+                "note": "Gérer uniquement les comportements limites via des media queries CSS standard sur la largeur d'écran. Ne jamais cibler .root-vstate-* ni .layout-col*.",
+                "example": "@media (max-width: 480px) { ##contentid .card .userpicture { padding-top: 100%; } }"
+            }
+        }
+    },
+
+    "customCSS": "/* Ce champ sera remplacé dans le JSON livré par le CSS personnalisé généré. */",
+
+    "template": {
+        "type": "article",
+        "className": "card",
+        "conditionalClasses": {
+            "round": [
+                {
+                    "name": "templateOptions.roundPicture",
+                    "op": "eq",
+                    "val": true
+                }
+            ]
+        },
+        "blocs": [
+            {
+                "type": "userpictureimg",
+                "fields": [
+                    {
+                        "name": "photo.thumbUrl"
+                    }
+                ],
+                "customfields": [
+                    {
+                        "name": "firstname"
+                    },
+                    {
+                        "name": "lastname"
+                    }
+                ]
+            },
+            {
+                "type": "div",
+                "className": "detail",
+                "blocs": [
+                    {
+                        "type": "h4",
+                        "className": "name bloc-accent",
+                        "fields": [
+                            {
+                                "name": "firstname"
+                            },
+                            {
+                                "name": "lastname"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "h5",
+                        "className": "company",
+                        "showIf": [
+                            {
+                                "not": {
+                                    "or": [
+                                        {
+                                            "name": "company",
+                                            "op": "isempty"
+                                        },
+                                        {
+                                            "name": "company",
+                                            "op": "eq",
+                                            "val": ""
+                                        },
+                                        {
+                                            "name": "company",
+                                            "op": "eq",
+                                            "val": null
+                                        },
+                                        {
+                                            "name": "templateOptions.hideCompany",
+                                            "op": "eq",
+                                            "val": true
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "name": "company",
+                                "maxLength": 30
+                            }
+                        ]
+                    },
+                    {
+                        "type": "h5",
+                        "className": "jobTitle",
+                        "showIf": [
+                            {
+                                "not": {
+                                    "or": [
+                                        {
+                                            "name": "jobTitle",
+                                            "op": "isempty"
+                                        },
+                                        {
+                                            "name": "jobTitle",
+                                            "op": "eq",
+                                            "val": ""
+                                        },
+                                        {
+                                            "name": "jobTitle",
+                                            "op": "eq",
+                                            "val": null
+                                        },
+                                        {
+                                            "name": "templateOptions.hideJobtitle",
+                                            "op": "eq",
+                                            "val": true
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "fields": [
+                            {
+                                "name": "jobTitle",
+                                "maxLength": 30
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "sociallinks",
+                "showIf": [
+                    {
+                        "name": "templateOptions.hideSocialLinks",
+                        "op": "neq",
+                        "val": true
+                    }
+                ]
+            }
+        ]
+    },
+
+    "templateOptions": {
+        "hideCompany": false,
+        "hideJobtitle": false,
+        "hideSocialLinks": false,
+        "roundPicture": true
+    },
+
+    "templateOptionsConfig": {
+        "fields": [
+            {
+                "key": "hideCompany",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer la société",
+                    "en": "Hide person's company name"
+                }
+            },
+            {
+                "key": "hideJobtitle",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer le fonction",
+                    "en": "Hide person's job title"
+                }
+            },
+            {
+                "key": "hideSocialLinks",
+                "type": "bool",
+                "labels": {
+                    "fr": "Masquer les réseaux sociaux",
+                    "en": "Hide person's social links"
+                }
+            },
+            {
+                "key": "roundPicture",
+                "type": "bool",
+                "labels": {
+                    "fr": "Image arrondie",
+                    "en": "Round picture"
+                }
+            }
+        ]
+    },
+
+    "itemsAlign": {
+        "default": "left"
+    },
+
+    "itemsLayout": {
+        "default": "col5",
+        "XL": "col5",
+        "L": "col5",
+        "M": "col3",
+        "S": "col3",
+        "XS": "col2",
+        "XXS": "col1"
+    }
+}
